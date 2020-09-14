@@ -24,6 +24,6 @@ pip install .
 
 ##### Training and testing a basic model
 To train and test an example model based on a small dataset consisting of 102 water geometries, use the following command:
-'''
+```
 python run_ml_dft_experiment.py water_102 water_102 50 50
-'''
+```
