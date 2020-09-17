@@ -1,5 +1,5 @@
 ML-DFT: Machine learning for density functional approximations
-This repository contains the implementation for the kernel ridge regression based density functional approximation method described in the paper "Quantum chemical accuracy from density functionalapproximations via machine learning".
+This repository contains the implementation for the kernel ridge regression based density functional approximation method described in the paper "Quantum chemical accuracy from density functional approximations via machine learning".
 
 ##### Requirements:
 - python==3.7
