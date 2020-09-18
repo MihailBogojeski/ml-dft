@@ -17,7 +17,7 @@ args = parser.parse_args()
 subprocess.call('python ml_dft/dft_ml.py calculate_potentials with "train_dir=' + args.train_folder + '" "test_dir=' + args.test_folder +
                 '" run_id=' + str(args.run_id) +
                 ' "gaussian_width=' + str(args.gaussian_width) + '" "grid_spacing=' + str(args.spacing) +
-                '" grid_file=""', shell=True)
+                '" grid_file="" "verbose=0" -l ERROR', shell=True)
 
 # Train and test the full model on the training data
 
@@ -39,4 +39,4 @@ subprocess.call('python ml_dft/dft_ml.py with "train_dir=' + args.train_folder +
                 '" "train_inds_file=train_inds_file.npy" "test_inds_file=test_inds_file.npy' +
                 '" "energy_type=dft" "use_true_densities=False" "run_id=' + str(args.run_id) +
                 '" "gaussian_width=' + str(args.gaussian_width) + '" "grid_spacing=' + str(args.spacing) +
-                '"', shell=True)
+                '" "verbose=0" -l ERROR', shell=True)

@@ -216,8 +216,9 @@ def calculate_potentials(data_dir, train_dir, test_dir, run_id, grid_spacing, gr
     Args:
         config: Dictionary containing the necessary configuration parameters.
     """
-    if verbose > 0:
-        print('Calculating potentials')
+
+    if verbose >= 0:
+        print('Calculating artificial potentials')
     if train_dir == test_dir:
         work_dirs = [train_dir]
     else:
@@ -584,6 +585,7 @@ def test(data_dir, train_dir, test_dir, energy_type, test_inds, test_inds_file, 
     """Evaluates the model using the data in id_range
         config: Dictionary containing the necessary configuration parameters.
     """
+    print('Evaluating the model')
     if verbose > 0:
         print('Testing the model')
     if test_inds_file is not None:
@@ -621,11 +623,11 @@ def test(data_dir, train_dir, test_dir, energy_type, test_inds, test_inds_file, 
     ex.info['corr'] = np.corrcoef(energies.T, energies_pred.T)[0][1]
     ex.info['errors'] = errors_pred
     ex.info['preds'] = energies_pred
-    print('Energies')
+    print('Energies:')
     print('Correlation: ', np.corrcoef(energies.T, energies_pred.T)[0][1])
     print('RMSE: ', np.sqrt(mean_squared_error(energies, energies_pred)))
     print('MAE: ', mean_absolute_error(energies, energies_pred))
-    print('Max: ', np.max(np.abs(energies - energies_pred)))
+    print('Max MAE: ', np.max(np.abs(energies - energies_pred)))
     if output_file is not None:
         if verbose > 0:
             print('Writing to file:', os.path.join(data_dir, test_dir,
@@ -646,7 +648,7 @@ def test(data_dir, train_dir, test_dir, energy_type, test_inds, test_inds_file, 
         f.write('Correlation: ' + str(corr) + '\n')
         f.write('RMSE: ' + str(np.sqrt(mean_squared_error(energies, energies_pred))) + '\n')
         f.write('MAE: ' + str(mean_absolute_error(energies, energies_pred)) + '\n')
-        f.write('Max: ' + str(np.max(np.abs(energies - energies_pred))) + '\n')
+        f.write('Max MAE: ' + str(np.max(np.abs(energies - energies_pred))) + '\n')
         np.save(os.path.join(data_dir, test_dir,
                              'errors_pred_' + energy_type +
                              '_' + str(run_id) + '.npy'), errors_pred)
@@ -660,7 +662,7 @@ def test_desc_en(data_dir, train_dir, test_dir, energy_type, test_inds, test_ind
     """Evaluates the model using the data in id_range
         config: Dictionary containing the necessary configuration parameters.
     """
-    if verbose > 0:
+    if verbose >= 0:
         print('Testing the model')
     descriptors = np.load(os.path.join(data_dir, test_dir, descriptor_type + '_' + str(run_id) + '.npy'))
     energies = np.load(os.path.join(data_dir, test_dir, energy_type + '_energies.npy'))
@@ -690,7 +692,7 @@ def test_desc_en(data_dir, train_dir, test_dir, energy_type, test_inds, test_ind
     ex.info['errors'] = errors_pred
     ex.info['corr'] = np.corrcoef(energies.T, energies_pred.T)[0][1]
     if output_file is None:
-        print('Energies')
+        print('Energies:')
         print('Correlation: ', np.corrcoef(energies.T, energies_pred.T)[0][1])
         print('RMSE: ', np.sqrt(mean_squared_error(energies, energies_pred)))
         print('MAE: ', mean_absolute_error(energies, energies_pred))
@@ -743,14 +745,8 @@ def train_full():
     """Performs the entire training procedure to predict the energies
         config: Dictionary containing the necessary configuration parameters.
     """
-    print('Starting full training process')
     calculate_descriptors()
-    dens_cv_err = descriptors_to_density()
-    ex.info['density_cv_err'] = dens_cv_err
-    dens_err = predict_density()
-    ex.info['density_test_err'] = dens_err
-    en_err = density_to_energy()
-    ex.info['energy_train_err'] = en_err
+    train()
 
 
 @ex.command
