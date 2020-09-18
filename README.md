@@ -29,7 +29,7 @@ To train and test an example model based on a small dataset consisting of 102 wa
 python run_ml_dft_experiment.py water_102 water_102 50 50
 ```
 The training and evalutaion of this example model should be done in under a minute.
-The final lines of the expected output should look like:
+The final lines of the output should look like:
 ```
 Energies:
 Correlation:  0.9999821536536118
