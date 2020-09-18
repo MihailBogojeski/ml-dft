@@ -31,11 +31,10 @@ python run_ml_dft_experiment.py water_102 water_102 50 50
 The training and evalutaion of this example model should be done in under a minute.
 The final lines of the expected output should look like:
 ```
-Correlation:  0.9999208434612572
-RMSE:  0.2636152741637275
-MAE:  0.13975325554005394
-Max:  1.4237659260907094
-INFO - Machine learning DFT - Result: 0.13975325554005394
-INFO - Machine learning DFT - Completed after 0:00:15
+Energies:
+Correlation:  0.9999821536536118
+RMSE:  0.15695036938603066
+MAE:  0.08933831997099333
+Max MAE:  0.6630057379879872
 ```
 Since the crossvalidation process is random the values can be different, however if the model is trained successfully the MAE should be in the range from 0.2 to 0.06.
